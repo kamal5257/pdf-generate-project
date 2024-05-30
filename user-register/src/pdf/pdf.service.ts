@@ -32,15 +32,25 @@ export class PdfService {
     return htmlContent;
   }
 
-  private async generatePdfFromHtml(htmlContent: string, pdfPath: string): Promise<Buffer> {
+  private async generatePdfFromHtml(htmlContent: string, pdfPath: string): Promise<any> {
     console.warn('INSIDE GEN HTML')
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      timeout: 0, // Set no timeout
+    });
     const page = await browser.newPage();
-    await page.setContent(htmlContent, {timeout: 0});
-    const pdfBuffer = await page.pdf({ path: pdfPath, format: 'A4' , timeout:0});
-    await browser.close();
-    console.log("323232323############ ",pdfBuffer)
-    return pdfBuffer; 
+    try{
+      await page.setContent(htmlContent, {waitUntil:'networkidle0',timeout: 0});
+      await page.pdf({path: pdfPath, format: 'A4', timeout: 0});
+      await browser.close();
+      console.log('PATHHH ',pdfPath)
+      return pdfPath; 
+    }
+    catch(err){
+      await browser.close();
+      throw err;
+    }
   }
 
 }

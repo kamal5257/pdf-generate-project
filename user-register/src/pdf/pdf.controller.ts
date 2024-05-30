@@ -19,7 +19,7 @@ export class PdfController {
     async generatePdf(@Body() userData: UserData, @Res() res: Response) {
         try {
             console.warn('INSIDE PDF CONTROLLER')
-            const pdfPath = `src/user-details${userData.id}.pdf`;
+            const pdfPath = `src/user-details/${userData.id}.pdf`;
           const pdfBuffer = await this.pdfService.generatePdfForUser(userData, pdfPath);
           res.set({
             'Content-Type': 'application/pdf',
