@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'pdf-generate';
+  pdfSrc: string = 'C:/Users/kamal/Downloads/Kamal/Kamal/user-register/src/user-details/Kamal Chindaliya.pdf'
 }

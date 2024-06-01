@@ -5,7 +5,7 @@ import * as fs from 'fs';
 
 
 interface UserData{
-  id: string,
+  _id: string,
   name: string,
   email: string,
   mobileNo: string,

@@ -69,3 +69,12 @@
     border-color: transparent;
     cursor: pointer;
   }
+
+  .pdf{
+    background-color: rgb(11, 104, 233);
+    color: #fff;
+    border-radius: 20px;
+    font-size: large;
+    border-color: transparent;
+    cursor: pointer;
+  }

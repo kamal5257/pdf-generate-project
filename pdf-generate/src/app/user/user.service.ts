@@ -4,7 +4,7 @@ import axios from "axios";
 import { Observable } from "rxjs";
 
 interface User {
-    id: string,
+    _id: string,
     name: string,
     email: string,
     mobileNo: string,
@@ -19,6 +19,8 @@ export class UserService{
     constructor(private http: HttpClient) { }
     private apiUrlGetAllUser = 'http://localhost:3000/user/getUsers';
     private apiUrlDeleteUser = 'http://localhost:3000/user/deleteUser';
+    private apiUrlGenPdf = 'http://localhost:3000/pdf/generate';
+    private apiUrlDownloadPdf = 'http://localhost:3000/pdf/download';
     
     async getUsers(): Promise<any[]> {
         try{
@@ -34,6 +36,14 @@ export class UserService{
 
     deleteUser(userId: string): Observable<any> {
         return this.http.get<any>(`${this.apiUrlDeleteUser}/${userId}`);
-      }
+    }
+
+    generatePdf(user: User): Observable<Blob> {
+        return this.http.post(this.apiUrlGenPdf, user, {responseType: 'blob'});
+    }
+
+    downloadPdf(fileName: string): Observable<Blob> {
+        return this.http.get(`${this.apiUrlDownloadPdf}/${fileName}`, {responseType: 'blob'});
+    }
 
 }
